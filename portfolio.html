@@ -16,10 +16,36 @@
             --border-subtle: #2d2d2d;
         }
 
+        /* Performance Optimizations */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Enable GPU acceleration for smooth animations */
+        .navbar-nav .nav-link,
+        .project-card,
+        .education-card,
+        .social-icon,
+        .carousel-item img,
+        .modal-content {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Reduce animation complexity for better performance */
+        .project-card::before,
+        .education-card::before {
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .project-card:hover::before,
+        .education-card:hover::before {
+            transform: translateX(100%);
         }
 
         body {
@@ -102,11 +128,14 @@
             color: var(--text-gray) !important;
             font-weight: 500;
             margin: 0 1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             transform: translateY(20px);
             opacity: 0;
             animation: slideInNav 0.6s ease-out forwards;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .navbar-nav .nav-item:nth-child(1) .nav-link { animation-delay: 2.7s; }
@@ -119,6 +148,11 @@
             transform: translateY(-2px);
         }
 
+        .navbar-nav .nav-link:active {
+            transform: translateY(-1px) scale(0.98);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .navbar-nav .nav-link::after {
             content: '';
             position: absolute;
@@ -127,7 +161,7 @@
             bottom: -5px;
             left: 50%;
             background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar-nav .nav-link:hover::after {
@@ -144,20 +178,29 @@
         .social-icon {
             color: var(--text-gray);
             font-size: 1.2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             position: relative;
             transform: scale(0);
             animation: bounceInSocial 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .social-icon:nth-child(1) { animation-delay: 3.1s; }
         .social-icon:nth-child(2) { animation-delay: 3.2s; }
         .social-icon:nth-child(3) { animation-delay: 3.3s; }
+        .social-icon:nth-child(4) { animation-delay: 3.4s; }
 
         .social-icon:hover {
             color: var(--accent-gold);
             transform: translateY(-3px) scale(1.2);
+        }
+
+        .social-icon:active {
+            transform: translateY(-1px) scale(1.1);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .social-icon::before {
@@ -326,13 +369,15 @@
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(50px) rotateX(10deg);
             position: relative;
             height: 350px;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .education-card.animate {
@@ -361,6 +406,11 @@
                 0 20px 40px rgba(212, 175, 55, 0.1),
                 0 0 20px rgba(212, 175, 55, 0.05);
             border-color: var(--accent-gold);
+        }
+
+        .education-card:active {
+            transform: translateY(-5px) rotateX(0deg) scale(0.98);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .education-image {
@@ -416,12 +466,14 @@
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(50px) rotateX(10deg);
             position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .project-card.animate {
@@ -450,6 +502,11 @@
                 0 20px 40px rgba(212, 175, 55, 0.1),
                 0 0 20px rgba(212, 175, 55, 0.05);
             border-color: var(--accent-gold);
+        }
+
+        .project-card:active {
+            transform: translateY(-5px) rotateX(0deg) scale(0.98);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-image {
@@ -558,20 +615,36 @@
 
         .btn-close {
             filter: invert(1);
-            transition: all 0.3s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-close:hover {
             transform: rotate(90deg) scale(1.1);
         }
 
+        .btn-close:active {
+            transform: rotate(90deg) scale(1.05);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .navbar-toggler {
             border: none;
             padding: 0.25rem 0.5rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .navbar-toggler:focus {
             box-shadow: none;
+        }
+
+        .navbar-toggler:active {
+            transform: scale(0.95);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar-toggler-icon {
@@ -640,23 +713,54 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Navigation Click Animations */
+        /* Navigation Click Animations - Premium & Smooth */
         @keyframes navClickRipple {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+            0% { 
+                transform: translate(-50%, -50%) scale(0); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.5); 
+                opacity: 0.4; 
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(2); 
+                opacity: 0; 
+            }
         }
 
         @keyframes sectionEnter {
             0% { 
-                opacity: 0.8; 
-                transform: scale(0.98) translateY(20px);
-                filter: blur(2px);
+                opacity: 0.9; 
+                transform: translateY(10px);
+                filter: blur(1px);
             }
             100% { 
                 opacity: 1; 
-                transform: scale(1) translateY(0);
+                transform: translateY(0);
                 filter: blur(0px);
             }
+        }
+
+        /* Premium navigation feedback */
+        .nav-click-feedback {
+            position: fixed;
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--accent-gold), transparent);
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) scaleY(0);
+            border-radius: 2px;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        @keyframes navFeedback {
+            0% { transform: translateY(-50%) scaleY(0); opacity: 0; }
+            20% { transform: translateY(-50%) scaleY(1); opacity: 1; }
+            80% { transform: translateY(-50%) scaleY(1); opacity: 1; }
+            100% { transform: translateY(-50%) scaleY(0); opacity: 0; }
         }
 
         /* Active Navigation States */
@@ -671,7 +775,7 @@
             box-shadow: 0 0 15px var(--accent-gold);
         }
 
-        /* Responsive Design */
+        /* Responsive Design with Enhanced Touch */
         @media (max-width: 768px) {
             .carousel-caption h2 {
                 font-size: 2.5rem;
@@ -695,6 +799,67 @@
 
             .project-card, .education-card {
                 height: auto;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* Enhanced mobile touch responsiveness */
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+                margin: 0.25rem 0;
+                border-radius: 6px;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .navbar-nav .nav-link:active {
+                background-color: rgba(212, 175, 55, 0.1);
+                transform: scale(0.98);
+            }
+
+            .social-icon {
+                padding: 0.5rem;
+                margin: 0.25rem;
+                border-radius: 50%;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .social-icon:active {
+                background-color: rgba(212, 175, 55, 0.1);
+                transform: scale(0.95);
+            }
+
+            .project-card:active,
+            .education-card:active {
+                transform: scale(0.97);
+                transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* Improved touch targets */
+            .carousel-indicators [data-bs-target] {
+                width: 14px;
+                height: 14px;
+                margin: 0 6px;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 15%;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .carousel-control-prev:active,
+            .carousel-control-next:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Tablet specific optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .navbar-nav .nav-link {
+                margin: 0 0.75rem;
+            }
+
+            .project-card, .education-card {
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
 
@@ -951,7 +1116,7 @@
                     <a href="https://linkedin.com/in/yourprofile" class="social-icon">
                         <i class="bi bi-linkedin"></i>
                     </a>
-                    <a href="https://share.google/Wmt37YMymWVhb0XNo" class="social-icon">
+                    <a href="https://github.com/yourusername" class="social-icon">
                         <i class="bi bi-github"></i>
                     </a>
                 </div>
@@ -1103,38 +1268,51 @@
     <script>
         // Premium Animation Controller
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Intersection Observer for scroll animations
+            // Initialize Intersection Observer for scroll animations with performance optimizations
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.15,
+                rootMargin: '0px 0px -30px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
+                        // Use requestAnimationFrame for smoother animations
+                        requestAnimationFrame(() => {
+                            entry.target.classList.add('animate');
+                        });
                         
-                        // Special handling for list items
+                        // Special handling for list items - staggered animation
                         if (entry.target.tagName === 'UL') {
                             const listItems = entry.target.querySelectorAll('li');
                             listItems.forEach((item, index) => {
                                 setTimeout(() => {
-                                    item.classList.add('animate');
-                                }, index * 100);
+                                    requestAnimationFrame(() => {
+                                        item.classList.add('animate');
+                                    });
+                                }, index * 80); // Reduced delay for snappier feel
                             });
                         }
                         
-                        // Special handling for project cards and education cards
+                        // Special handling for cards - optimized stagger
                         if (entry.target.classList.contains('project-card') || entry.target.classList.contains('education-card')) {
                             const cards = document.querySelectorAll('.project-card, .education-card');
+                            let cardIndex = 0;
                             cards.forEach((card, index) => {
                                 if (card === entry.target) {
-                                    setTimeout(() => {
-                                        card.classList.add('animate');
-                                    }, index * 150);
+                                    cardIndex = index;
                                 }
                             });
+                            
+                            setTimeout(() => {
+                                requestAnimationFrame(() => {
+                                    entry.target.classList.add('animate');
+                                });
+                            }, (cardIndex % 6) * 100); // Stagger by row
                         }
+                        
+                        // Unobserve after animation to improve performance
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -1148,7 +1326,7 @@
                 observer.observe(el);
             });
 
-            // Enhanced smooth scrolling with premium navigation animations
+            // Enhanced smooth scrolling with immediate visual feedback
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1156,146 +1334,188 @@
                     const target = document.querySelector(targetId);
                     
                     if (target) {
-                        // Add click animation to nav link
-                        this.style.transform = 'scale(0.95)';
-                        this.style.transition = 'transform 0.1s ease';
+                        // Immediate haptic-like feedback
+                        this.style.transform = 'scale(0.96)';
+                        this.style.transition = 'transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)';
+                        
+                        // Quick bounce back for premium feel
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1.02)';
+                        }, 100);
                         
                         setTimeout(() => {
                             this.style.transform = 'scale(1)';
-                        }, 100);
+                            this.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                        }, 200);
 
-                        // Create navigation animation effect
-                        const navEffect = document.createElement('div');
-                        navEffect.className = 'nav-click-effect';
-                        navEffect.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            width: 100px;
-                            height: 100px;
-                            background: radial-gradient(circle, var(--accent-gold)30, transparent 70%);
-                            border-radius: 50%;
-                            transform: translate(-50%, -50%) scale(0);
-                            animation: navClickRipple 0.6s ease-out forwards;
-                            pointer-events: none;
-                            z-index: 10000;
-                        `;
-                        document.body.appendChild(navEffect);
+                        // Premium navigation feedback - elegant side indicator
+                        const navFeedback = document.createElement('div');
+                        navFeedback.className = 'nav-click-feedback';
+                        navFeedback.style.animation = 'navFeedback 1s cubic-bezier(0.4, 0, 0.2, 1)';
+                        document.body.appendChild(navFeedback);
 
-                        // Remove effect after animation
+                        // Remove feedback after animation
                         setTimeout(() => {
-                            navEffect.remove();
-                        }, 600);
+                            navFeedback.remove();
+                        }, 1000);
 
-                        // Smooth scroll to target
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        // Smooth scroll to target with easing
+                        const startPosition = window.pageYOffset;
+                        const targetPosition = target.offsetTop - 70;
+                        const distance = targetPosition - startPosition;
+                        const duration = Math.min(Math.abs(distance) / 3, 600); // Faster duration
+                        let start = null;
 
-                        // Add section entrance animation
-                        setTimeout(() => {
-                            target.style.animation = 'sectionEnter 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        function smoothScrollAnimation(currentTime) {
+                            if (start === null) start = currentTime;
+                            const timeElapsed = currentTime - start;
+                            const progress = Math.min(timeElapsed / duration, 1);
                             
-                            // Reset animation after completion
-                            setTimeout(() => {
-                                target.style.animation = '';
-                            }, 800);
-                        }, 500);
+                            // Luxury easing function - more responsive
+                            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                            
+                            window.scrollTo(0, startPosition + (distance * easeOutQuart));
+                            
+                            if (timeElapsed < duration) {
+                                requestAnimationFrame(smoothScrollAnimation);
+                            } else {
+                                // Immediate section entrance animation
+                                target.style.animation = 'sectionEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                                
+                                // Reset animation after completion
+                                setTimeout(() => {
+                                    target.style.animation = '';
+                                }, 400);
+                            }
+                        }
+
+                        requestAnimationFrame(smoothScrollAnimation);
                     }
+                });
+
+                // Add touch/mouse down feedback for extra responsiveness
+                anchor.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.96)';
+                    this.style.transition = 'transform 0.05s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+
+                anchor.addEventListener('mouseup', function() {
+                    if (!this.getAttribute('href').startsWith('#')) return;
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                        this.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                    }, 50);
+                });
+
+                // Touch events for mobile
+                anchor.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.96)';
+                    this.style.transition = 'transform 0.05s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+
+                anchor.addEventListener('touchend', function() {
+                    if (!this.getAttribute('href').startsWith('#')) return;
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                        this.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                    }, 50);
                 });
             });
 
-            // Enhanced carousel controls
+            // Enhanced carousel controls - optimized for performance
             const carousel = document.querySelector('#heroCarousel');
             if (carousel) {
                 const bsCarousel = new bootstrap.Carousel(carousel, {
-                    interval: 5000,
+                    interval: 6000, // Slightly longer interval
                     wrap: true,
                     touch: true
                 });
 
-                // Add custom slide transition effects
+                // Simplified slide transition effects for better performance
                 carousel.addEventListener('slide.bs.carousel', function(e) {
-                    const activeImg = e.target.querySelector('.carousel-item.active img');
                     const nextImg = e.relatedTarget.querySelector('img');
-                    
-                    if (activeImg) activeImg.style.transform = 'scale(1.1)';
                     if (nextImg) {
                         nextImg.style.opacity = '0';
-                        nextImg.style.transform = 'scale(0.9)';
+                        nextImg.style.transform = 'scale(0.95)';
                     }
                 });
 
                 carousel.addEventListener('slid.bs.carousel', function(e) {
                     const activeImg = e.target.querySelector('.carousel-item.active img');
                     if (activeImg) {
+                        activeImg.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
                         activeImg.style.opacity = '1';
                         activeImg.style.transform = 'scale(1)';
                     }
                 });
             }
 
-            // Active section highlighting
+            // Active section highlighting - throttled for performance
             const sections = document.querySelectorAll('section, #heroCarousel');
             const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            let ticking = false;
 
             const updateActiveSection = () => {
-                let currentSection = '';
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    if (rect.top <= 100 && rect.bottom >= 100) {
-                        currentSection = section.id;
-                    }
-                });
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        let currentSection = '';
+                        sections.forEach(section => {
+                            const rect = section.getBoundingClientRect();
+                            if (rect.top <= 120 && rect.bottom >= 120) {
+                                currentSection = section.id;
+                            }
+                        });
 
-                navLinks.forEach(link => {
-                    link.classList.remove('active-section');
-                    const href = link.getAttribute('href').substring(1);
-                    if (href === currentSection || (currentSection === 'heroCarousel' && href === 'heroCarousel')) {
-                        link.classList.add('active-section');
-                    }
-                });
+                        navLinks.forEach(link => {
+                            const shouldBeActive = link.getAttribute('href').substring(1) === currentSection || 
+                                                 (currentSection === 'heroCarousel' && link.getAttribute('href').substring(1) === 'heroCarousel');
+                            
+                            if (shouldBeActive && !link.classList.contains('active-section')) {
+                                link.classList.add('active-section');
+                            } else if (!shouldBeActive && link.classList.contains('active-section')) {
+                                link.classList.remove('active-section');
+                            }
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
             };
 
-            // Update active section on scroll
-            window.addEventListener('scroll', updateActiveSection);
+            // Throttled scroll listener
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(updateActiveSection, 10);
+            });
             updateActiveSection(); // Initial call
 
-            // Add parallax effect to sections
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const parallaxElements = document.querySelectorAll('.carousel-item::before');
-                
-                parallaxElements.forEach(element => {
-                    const speed = 0.5;
-                    element.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-            });
-
-            // Enhanced modal animations
+            // Remove heavy parallax effect for better performance
+            // Enhanced modal animations - simplified
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
                 modal.addEventListener('show.bs.modal', function() {
-                    this.querySelector('.modal-content').style.animation = 'modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    const modalContent = this.querySelector('.modal-content');
+                    modalContent.style.animation = 'modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
                 });
             });
 
-            // Add loading states for images
+            // Optimized image loading with fade-in
             const images = document.querySelectorAll('img');
             images.forEach(img => {
                 if (!img.complete) {
+                    img.style.opacity = '0';
                     img.addEventListener('load', function() {
+                        this.style.transition = 'opacity 0.3s ease';
                         this.style.opacity = '1';
-                        this.style.transform = 'scale(1)';
                     });
                 }
             });
 
-            // Performance optimization: Reduce animations on slower devices
-            if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-                document.body.classList.add('reduced-motion');
-            }
+            // Remove hardware check as it's not always accurate
+            // Focus on CSS optimizations instead
         });
 
         // Preloader management
