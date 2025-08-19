@@ -98,7 +98,6 @@
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* Enhanced Navbar Animations */
         .navbar {
             background-color: rgba(10, 10, 10, 0.95) !important;
             backdrop-filter: blur(10px);
