@@ -74,7 +74,7 @@
         }
 
         .loader-ring::before {
-            border-top-color: var(--accent-gold);
+            border-top-color: var(--accent-gold-light);  /* LOADING COLOR*/
             filter: drop-shadow(0 0 20px var(--accent-gold));
         }
 
@@ -170,7 +170,7 @@
         }
 
         .navbar-nav .nav-link:hover {
-            color: var(--accent-gold) !important;
+            color: var(--accent-gold-light) !important;
             transform: translateY(-3px);
             text-shadow: var(--glow-gold);
         }
@@ -180,14 +180,14 @@
         }
 
         .navbar-nav .nav-link.active {
-            color: var(--accent-gold) !important;
-            text-shadow: var(--glow-gold);
+            color: var(--border-subtle) !important;
+            text-shadow: var(--accent-gold-light);
             transform: translateY(-2px);
         }
 
         .navbar-nav .nav-link.active::before {
             transform: scaleX(1);
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light), var(--accent-gold));
+            background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold-light), var(--accent-gold-light));
         }
 
         /* Social Icons */
@@ -219,7 +219,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-gold-light));
+            background: linear-gradient(45deg, var(--secondary-black), var(--border-subtle));
             border-radius: 50%;
             transform: scale(0);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -227,9 +227,9 @@
         }
 
         .social-icon:hover {
-            color: var(--primary-black);
+            color: var(--accent-gold);
             transform: translateY(-5px) scale(1.1) rotate(360deg);
-            box-shadow: var(--glow-gold);
+            box-shadow: var(--accent-gold);
         }
 
         .social-icon:hover::before {
